@@ -4,12 +4,9 @@ pipeline {
     maven 'Maven'
   }
   stages {
-    stage ('SAST') {
+    stage ('SCM Checkout') {
       steps {
-        withSonarQubeEnv('SonarQube') {
-          sh 'mvn sonar:sonar'
-          sh 'cat target/sonar/report-task.txt'
-        }
+      git 'https://github.com/devopsadmin12/Spring-Application.git'
       }
     }
   
