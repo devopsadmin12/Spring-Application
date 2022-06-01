@@ -4,11 +4,14 @@ pipeline {
     maven 'Maven'
   }
   stages {
-    
-   stage ('Build') {
+    stage ('SAST') {
       steps {
-      sh 'mvn clean package'
-       }
+        withSonarQubeEnv('SonarQube') {
+          sh 'mvn sonar:sonar'
+          sh 'cat target/sonar/report-task.txt'
+        }
+      }
     }
+  
   }
 }
